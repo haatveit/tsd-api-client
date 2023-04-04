@@ -8,7 +8,6 @@ import time
 from datetime import datetime, timedelta
 
 from tsdapiclient.exc import AuthnError
-from tsdapiclient.client_config import ENV
 from tsdapiclient.session import session_update
 from tsdapiclient.tools import handle_request_errors, auth_api_url, debug_step, get_claims
 

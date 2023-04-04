@@ -23,20 +23,10 @@ from requests.exceptions import (
     RequestException,
     Timeout,
 )
-from tsdapiclient.client_config import API_VERSION
+from tsdapiclient.environment import API_VERSION, EnvironmentHostname
 from tsdapiclient.exc import AuthzError, AuthnError
 
 HELP_URL = 'https://www.uio.no/english/services/it/research/sensitive-data/contact/index.html'
-
-HOSTS = {
-    'test': 'test.api.tsd.usit.no',
-    'prod': 'api.tsd.usit.no',
-    'ec-prod': 'api.fp.educloud.no',
-    'ec-test': 'test.api.fp.educloud.no',
-    'alt': 'alt.api.tsd.usit.no',
-    'int': 'internal.api.tsd.usit.no',
-    'dev': 'localhost:3003',
-}
 
 def auth_api_url(env: str, pnum: str, auth_method: str) -> str:
     endpoints = {
@@ -60,11 +50,12 @@ def auth_api_url(env: str, pnum: str, auth_method: str) -> str:
         assert auth_method in [
             'basic', 'tsd', 'iam', 'refresh',
         ], f'Unrecognised auth_method: {auth_method}'
-        host = HOSTS.get(env)
+        host = EnvironmentHostname[env]
         endpoint_env = env if env in ['int', 'dev'] else 'default'
         endpoint = endpoints.get(endpoint_env).get(auth_method)
         scheme = 'http' if env == 'dev' else 'https'
         url = f'{scheme}://{host}/{API_VERSION}/{endpoint}'
+        print(url)
         return url
     except (AssertionError, Exception) as e:
         raise e
@@ -80,7 +71,7 @@ def file_api_url(
     per_page: Optional[int] = None,
 ) -> str:
     try:
-        host = HOSTS.get(env)
+        host = EnvironmentHostname[env]
         if page:
             url = f'https://{host}{page}'
             if per_page:

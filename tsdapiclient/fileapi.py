@@ -30,13 +30,11 @@ except OSError:
     LIBSODIUM_AVAILABLE = False
 
 from tsdapiclient.authapi import maybe_refresh
-from tsdapiclient.client_config import ENV, API_VERSION
 from tsdapiclient.tools import (
     handle_request_errors,
     debug_step,
     HELP_URL,
     file_api_url,
-    HOSTS,
     get_claims,
     Retry,
 )
