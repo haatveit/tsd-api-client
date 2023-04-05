@@ -23,12 +23,12 @@ from requests.exceptions import (
     RequestException,
     Timeout,
 )
-from tsdapiclient.environment import API_VERSION, EnvironmentHostname
+from tsdapiclient.environment import API_VERSION, Environment, EnvironmentHostname
 from tsdapiclient.exc import AuthzError, AuthnError
 
 HELP_URL = 'https://www.uio.no/english/services/it/research/sensitive-data/contact/index.html'
 
-def auth_api_url(env: str, pnum: str, auth_method: str) -> str:
+def auth_api_url(env: Environment, pnum: str, auth_method: str) -> str:
     endpoints = {
         'default': {
             'basic': f'{pnum}/auth/basic/token',
@@ -62,7 +62,7 @@ def auth_api_url(env: str, pnum: str, auth_method: str) -> str:
 
 
 def file_api_url(
-    env: str,
+    env: Environment,
     pnum: str,
     service: str,
     endpoint: str = '',
@@ -201,7 +201,7 @@ def get_config_path() -> str:
 
     return str(config_path)
 
-def get_data_path(env: str, pnum: str) -> str:
+def get_data_path(env: Environment, pnum: str) -> str:
     home_path = pathlib.Path.home()
     xdg_path = os.environ.get('XDG_DATA_HOME')
     base = pathlib.Path(xdg_path) if xdg_path else home_path / '.local/share'

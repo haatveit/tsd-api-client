@@ -174,7 +174,7 @@ def get_user_credentials(env: Optional[str] = None) -> tuple:
     return username, password, otp
 
 
-def get_api_key(env: str, pnum: str) -> str:
+def get_api_key(env: Environment, pnum: str) -> str:
     if env == "dev":
         return "would-have-been-a-jwt"
     config = read_config()
@@ -196,7 +196,7 @@ def get_api_key(env: str, pnum: str) -> str:
     return api_key
 
 
-def check_api_connection(env: str) -> None:
+def check_api_connection(env: Environment) -> None:
     if env == Environment.dev:
         return
     if os.getenv("HTTPS_PROXY"):
@@ -461,7 +461,7 @@ def construct_correct_upload_path(path: str) -> str:
 def cli(
     pnum: str,
     guide: str,
-    env: str,
+    env: Environment,
     group: str,
     basic: bool,
     upload: str,

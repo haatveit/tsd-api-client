@@ -30,6 +30,7 @@ except OSError:
     LIBSODIUM_AVAILABLE = False
 
 from tsdapiclient.authapi import maybe_refresh
+from tsdapiclient.environment import Environment
 from tsdapiclient.tools import (
     handle_request_errors,
     debug_step,
@@ -205,7 +206,7 @@ def lazy_reader(
 
 @handle_request_errors
 def streamfile(
-    env: str,
+    env: Environment,
     pnum: str,
     filename: str,
     token: str,
@@ -297,7 +298,7 @@ def print_export_list(data: dict) -> None:
 
 @handle_request_errors
 def import_list(
-    env: str,
+    env: Environment,
     pnum: str,
     token: str,
     backend: str = 'files',
@@ -337,7 +338,7 @@ def import_list(
 
 @handle_request_errors
 def survey_list(
-    env: str,
+    env: Environment,
     pnum: str,
     token: str,
     backend: str = 'survey',
@@ -377,7 +378,7 @@ def survey_list(
 
 @handle_request_errors
 def import_delete(
-    env: str,
+    env: Environment,
     pnum: str,
     token: str,
     filename: str,
@@ -399,7 +400,7 @@ def import_delete(
 
 @handle_request_errors
 def export_delete(
-    env: str,
+    env: Environment,
     pnum: str,
     token: str,
     filename: str,
@@ -422,7 +423,7 @@ def export_delete(
 
 @handle_request_errors
 def export_list(
-    env: str,
+    env: Environment,
     pnum: str,
     token: str,
     backend: str = 'files',
@@ -462,7 +463,7 @@ def export_list(
 
 @handle_request_errors
 def export_head(
-    env: str,
+    env: Environment,
     pnum: str,
     filename: str,
     token: str,
@@ -478,7 +479,7 @@ def export_head(
 
 @handle_request_errors
 def export_get(
-    env: str,
+    env: Environment,
     pnum: str,
     filename: str,
     token: str,
@@ -605,7 +606,7 @@ def export_get(
 
 
 def _resumable_url(
-    env: str,
+    env: Environment,
     pnum: str,
     filename: str,
     dev_url: Optional[str] = None,
@@ -663,7 +664,7 @@ def print_resumables_list(
 
 @handle_request_errors
 def get_resumable(
-    env: str,
+    env: Environment,
     pnum: str,
     token: str,
     filename: Optional[str] = None,
@@ -705,7 +706,7 @@ def get_resumable(
 
 
 def initiate_resumable(
-    env: str,
+    env: Environment,
     pnum: str,
     filename: str,
     token: str,
@@ -830,7 +831,7 @@ def initiate_resumable(
 
 @handle_request_errors
 def _complete_resumable(
-    env: str,
+    env: Environment,
     pnum: str,
     filename: str,
     token: str,
@@ -857,7 +858,7 @@ def _complete_resumable(
 
 @handle_request_errors
 def _start_resumable(
-    env: str,
+    env: Environment,
     pnum: str,
     filename: str,
     token: str,
@@ -941,7 +942,7 @@ def _start_resumable(
 
 @handle_request_errors
 def _continue_resumable(
-    env: str,
+    env: Environment,
     pnum: str,
     filename: str,
     token: str,
@@ -1028,7 +1029,7 @@ def _continue_resumable(
 
 @handle_request_errors
 def delete_resumable(
-    env: str,
+    env: Environment,
     pnum: str,
     token: str,
     filename: str,
@@ -1070,7 +1071,7 @@ def delete_resumable(
 
 
 def delete_all_resumables(
-    env: str,
+    env: Environment,
     pnum: str,
     token: str,
     dev_url: Optional[str] = None,
