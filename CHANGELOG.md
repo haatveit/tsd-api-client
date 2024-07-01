@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [unreleased]
 
+### ⚙️ Miscellaneous Tasks
+
+* *(docs)* Add automatic generation of CHANGELOG
+
+## [3.5.14] - 2024-03-25
+
 ### 🚀 Features
 
 * Add external IP address lookup
@@ -26,7 +32,6 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 * Add container build workflow
-* *(docs)* Add automatic generation of CHANGELOG
 
 ### TDRIFT-847
 
