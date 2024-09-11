@@ -206,6 +206,10 @@ def handle_request_errors(f: Callable) -> Any:
         except AuthnError as err:
             print(err)
             sys.exit("Authentication failed. Exiting.")
+        except json.decoder.JSONDecodeError as err:
+            print(err)
+            sys.exit("Failed to parse API response. Exiting.")
+
     return decorator
 
 def _get_system_config_path() -> pathlib.Path:
