@@ -909,7 +909,11 @@ def _start_resumable(
                 session = retriable.get("new_session")
             resp = retriable.get("resp")
             resp.raise_for_status()
-            data = json.loads(resp.text)
+            try:
+                data = json.loads(resp.text)
+            except json.decoder.JSONDecodeError:
+                debug_step(f"failed to parse API response: {resp.text}")
+                raise
         if chunk_num == 1:
             upload_id = data['id']
             print('Upload id: {0}'.format(upload_id))
@@ -1003,7 +1007,11 @@ def _continue_resumable(
                 session = retriable.get("new_session")
             resp = retriable.get("resp")
             resp.raise_for_status()
-            data = json.loads(resp.text)
+            try:
+                data = json.loads(resp.text)
+            except json.decoder.JSONDecodeError:
+                debug_step(f"failed to parse API response: {resp.text}")
+                raise
         bar.next()
         upload_id = data['id']
         chunk_num = data.get("max_chunk") + 1
